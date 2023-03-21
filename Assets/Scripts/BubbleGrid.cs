@@ -19,6 +19,8 @@ public class BubbleGrid : MonoBehaviour
 
     private GridData[,] _grid;
 
+    public InputManager InputManager;
+
     void GenerateGrid()
     {
         _grid = new GridData[initialRowCount, maxBubblePerRow];
@@ -29,7 +31,8 @@ public class BubbleGrid : MonoBehaviour
                 _grid[i, j] = new GridData()
                 {
                     LocalPosition = new Vector2(j * bubbleSize + 1f, (initialRowCount - i) * bubbleSize),
-                    Index = new Vector2Int(i, j)
+                    Index = new Vector2Int(i, j),
+                    Name = ""
                 };
                 var obj = Instantiate(bubble, transform);
                 obj.SetActive(false);
@@ -175,8 +178,27 @@ public class BubbleGrid : MonoBehaviour
         {
             LatestFilledRow += 1;
         }
+
+        PerformMatching();   
+        InputManager.EnableInput = true;
     }
 
+    void PerformMatching()
+    {
+        int depth = 4;
+        for (int i = 0; i < depth; i++)
+        {
+            if (LastIndexedGridData.Index.y != 0)
+            {
+                //checkLeft
+            }
+
+            if (LastIndexedGridData.Index.y != maxBubblePerRow - 1)
+            {
+                //check right
+            }
+        }
+    }
     void OnStartGameCalled(List<Sprite> sprites)
     {
         

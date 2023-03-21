@@ -7,6 +7,8 @@ public class Shooter : MonoBehaviour
     [SerializeField] private GameObject objectToShoot;
     [SerializeField] private float travelTime = 1f;
 
+    public InputManager InputManager;
+
     private List<Sprite> _shootSprites;
 
     [SerializeField] private List<SpriteRenderer> _magUI;
@@ -55,6 +57,7 @@ public class Shooter : MonoBehaviour
     private void OnTouchEnded()
     {   
         if (shooterMag.Count == 0) return;
+        InputManager.EnableInput = false;
         Vector3[] trajectory = trajectoryManager.GetTrajectory();
         Invoke(nameof(ConvertToBubble),1f);
         for (int i = 1; i < trajectory.Length; i++)
