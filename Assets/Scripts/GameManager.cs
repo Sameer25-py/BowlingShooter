@@ -47,6 +47,8 @@ public class GameManager : MonoBehaviour
     public bool            EnableSound     = true;
     public bool            EnableVibration = true;
 
+    public AudioSource AudioSource;
+
     void EnableInput()
     {
         inputManager.EnableInput = true;
@@ -61,6 +63,16 @@ public class GameManager : MonoBehaviour
     {
         inGameUI.SetActive(false);
         settingsMenu.SetActive(false);
+        Events.TriggerVibration.AddListener(OnTriggerVibrationCalled);
+    }
+
+    private void OnTriggerVibrationCalled()
+    {
+        if (EnableVibration)
+        {   
+            Handheld.Vibrate();
+        }
+        
     }
 
     public void ResumeGame()
@@ -118,10 +130,17 @@ public class GameManager : MonoBehaviour
 
     public void SwitchSound(bool status)
     {
-        Debug.Log(status);
+        AudioSource.volume = status ? 1 : 0;
     }
 
-    public void SwitchVibration(bool status) { }
+    public void SwitchVibration(bool status)
+    {
+        EnableVibration = status;
+        if (status)
+        {
+            OnTriggerVibrationCalled();
+        }
+    }
 
     public void ChangeLanguage(Language language)
     {

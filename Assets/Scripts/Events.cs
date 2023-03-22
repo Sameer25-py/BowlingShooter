@@ -14,4 +14,5 @@ public static class Events
     public static UnityEvent<Language>     ChangeLanguageUI   = new();
     public static UnityEvent<Theme>        ChangeThemeUI      = new();
     public static UnityEvent<int>          ChangeDifficultyUI = new();
+    public static UnityEvent               TriggerVibration   = new();
 }
