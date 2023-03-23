@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject background;
     [SerializeField] private GameObject inGameUI;
     [SerializeField] private GameObject backDrop;
+    [SerializeField] private GameObject pauseMenu;
 
     public BubbleGrid   grid;
     public Shooter      shooter;
@@ -69,10 +70,9 @@ public class GameManager : MonoBehaviour
     private void OnTriggerVibrationCalled()
     {
         if (EnableVibration)
-        {   
+        {
             Handheld.Vibrate();
         }
-        
     }
 
     public void ResumeGame()
@@ -91,6 +91,24 @@ public class GameManager : MonoBehaviour
         menu.SetActive(false);
         background.SetActive(true);
         settingsMenu.SetActive(true);
+    }
+
+    public void ShowPauseMenu()
+    {
+        if (pauseMenu.activeSelf)
+        {
+            pauseMenu.SetActive(false);
+            Invoke(nameof(EnableInput),0.1f);
+        }
+        else
+        {
+            pauseMenu.SetActive(true);
+            DisableInput();
+        }
+        inGameUI.SetActive(true);
+        menu.SetActive(false);
+        background.SetActive(false);
+        settingsMenu.SetActive(false);
     }
 
     public void ShowMenu()
